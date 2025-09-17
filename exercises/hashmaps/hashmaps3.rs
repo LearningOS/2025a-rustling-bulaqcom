@@ -14,7 +14,7 @@
 // Execute `rustlings hint hashmaps3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+// I AM DONE
 
 use std::collections::HashMap;
 
@@ -39,6 +39,36 @@ fn build_scores_table(results: String) -> HashMap<String, Team> {
         // will be the number of goals conceded from team_2, and similarly
         // goals scored by team_2 will be the number of goals conceded by
         // team_1.
+
+        println!("team1_name = {} , team2_name = {} ",team_1_name, team_2_name);
+        println!("team_1_score = {} , team_2_score = {} ",team_1_score, team_2_score);
+
+
+        // scores.entry(&team_1_name).or_insert(Team {goals_scored: team_1_score, goals_conceded: team_2_score});
+
+
+        if !scores.contains_key(&team_1_name) {
+
+            println!("新，需要新加 team_1_name = {} ",team_1_name);
+
+            scores.insert(team_1_name.clone(), Team {goals_scored: team_1_score, goals_conceded: team_2_score});
+        }else {
+            if let Some(value) = scores.get_mut(&team_1_name) {
+                value.goals_scored += team_1_score;
+                value.goals_conceded += team_2_score;
+            }
+        }
+
+        if !scores.contains_key(&team_2_name) {
+            println!("新，需要新加 team_2_name = {} ",team_2_name);
+            scores.insert(team_2_name.clone(), Team {goals_scored: team_2_score, goals_conceded: team_1_score});
+        }else {
+            if let Some(value) = scores.get_mut(&team_2_name) {
+                value.goals_scored += team_2_score;
+                value.goals_conceded += team_1_score;
+            }
+        }
+
     }
     scores
 }
