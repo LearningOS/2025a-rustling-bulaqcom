@@ -70,13 +70,37 @@ impl<T> LinkedList<T> {
         }
     }
 	pub fn merge(list_a:LinkedList<T>,list_b:LinkedList<T>) -> Self
-	{
-		//TODO
-		Self {
-            length: 0,
-            start: None,
-            end: None,
-        }
+	{  
+    let result = LinkedList::new();
+    let a = list_a.start;
+    let b = list_b.start;
+
+    while a.is_some() || b.is_some(){
+
+      if a.is_none(){
+        result.add((*b.unwrap().as_ptr()).val);
+        b = (*b.unwrap().as_ptr()).next;
+
+      }else if  b.is_none(){
+        result.add((*a.unwrap().as_ptr()).val);
+        a = (*a.unwrap().as_ptr()).next;
+      }else{
+
+        let val_a = &(*a.unwrap().as_ptr()).val;
+                    let val_b = &(*b.unwrap().as_ptr()).val;
+                    if val_a < val_b {
+                        result.add(val_a);
+                        a = (*a.unwrap().as_ptr()).next;
+                    } else {
+                        result.add(val_b);
+                        b = (*b.unwrap().as_ptr()).next;
+                    }
+
+
+      }
+    }
+
+		result
 	}
 }
 
