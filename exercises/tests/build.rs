@@ -20,6 +20,8 @@ fn main() {
 
     println!("cargo:rerun-if-changed=build.rs");
 
+    // println!("cargo:rustc-cfg=feature=\"pass\""); 
+
     // In tests8, we should enable "pass" feature to make the
     // testcase return early. Fill in the command to tell
     // Cargo about that.
